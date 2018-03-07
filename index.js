@@ -21,7 +21,7 @@ var mongoDB = 'mongodb://dbuser:dbuser@sporties-shard-00-00-cl2y2.mongodb.net:27
  //SERVER INFO CONFIG
 var SERVER_NAME = 'sporties';  
 var PORT = process.env.PORT;
-var HOST = 'http://sporties.herokuapp.com/';
+var HOST = 'https://sampleakki.herokuapp.com/';
 
 // Create the restify server
 server = restify.createServer({ name: SERVER_NAME });
