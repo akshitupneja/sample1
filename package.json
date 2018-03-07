@@ -1,5 +1,5 @@
 {
-  "name": "sporties",
+  "name": "sample",
   "version": "1.0.0",
   "description": "Project",
   "main": "index.js",
@@ -18,5 +18,14 @@
     "passport": "^0.4.0",
     "restify": "^6.3.4",
     "save": "^2.3.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshitupneja/sample1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akshitupneja/sample1/issues"
+  },
+  "homepage": "https://github.com/akshitupneja/sample1#readme"
 }
