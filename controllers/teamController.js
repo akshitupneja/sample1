@@ -33,7 +33,7 @@ exports.viewTeam = function(req, res, next) {
                 data: "Error occured: " + err
             })
         } else {
-            if (article) {
+            if (team) {
                 res.json({
                     type: true,
                     data: team
