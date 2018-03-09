@@ -11,6 +11,7 @@ var Team = require(__dirname + "/models/teams");
 
 //Controllers
 var teamController = require(__dirname + "/controllers/teamController");
+var loginController = require(__dirname + "/controllers/login");
 
 console.log("%s", Player);
 console.log("%s", Team);
@@ -20,7 +21,7 @@ var mongoDB = 'mongodb://dbuser:dbuser@sporties-shard-00-00-cl2y2.mongodb.net:27
 
  //SERVER INFO CONFIG
 var SERVER_NAME = 'sporties';  
-var PORT = process.env.PORT;
+var PORT = process.env.PORT|| 3000;
 var HOST = 'https://sampleakki.herokuapp.com/';
 
 // Create the restify server
@@ -50,11 +51,12 @@ db.once('open', function() {
 // Team Start
 server.post("/api/createTeam", teamController.createTeam)
 server.get("/api/viewTeam/:id", teamController.viewTeam)
+server.post("/api/createUser", loginController.addUser)
 // Team End
 
 
 
 
 
-
-
+module.exports = server;
+module.exports = db;
