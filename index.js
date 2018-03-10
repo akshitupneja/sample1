@@ -63,7 +63,7 @@ server.use(restify.bodyParser());
 
 // Team Start
 server.post("/api/createTeam", teamController.createTeam);
-server.get("/api/viewTeam/:id", teamController.viewTeam);
+//server.get("/api/viewTeam/:id", teamController.viewTeam);
 
 console.log("qbc");
 // Team End
