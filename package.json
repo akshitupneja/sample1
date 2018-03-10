@@ -1,32 +1,24 @@
 {
-  "name": "sample",
+  "name": "sample1",
   "version": "1.0.0",
-  "description": "Project",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "sports",
-    "project"
-  ],
-  "author": "Akshit Upneja",
-  "license": "ISC",
-  "dependencies": {
-    "mongodb": "^3.0.3",
-    "mongoose": "^5.0.7",
-    "passport": "^0.4.0",
-    "restify": "^6.3.4",
-    "save": "^2.3.2"
-  },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/akshitupneja/sample1.git"
   },
+  "author": "",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/akshitupneja/sample1/issues"
   },
-  "homepage": "https://github.com/akshitupneja/sample1#readme"
+  "homepage": "https://github.com/akshitupneja/sample1#readme",
+  "dependencies": {
+    "mongoose": "^4.13.11",
+    "restify": "^4.3.2",
+    "save": "^2.3.2"
+  },
+  "description": ""
 }

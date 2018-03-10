@@ -10,13 +10,10 @@
 
 */
 
-var mongo = require('mongodb');
-
-
 var mongoose = require('mongoose'),
 Player = mongoose.model("Player"),
-ObjectId = mongoose.Types.ObjectId,
-BSON = mongo.BSONPure;
+ObjectId = mongoose.Types.ObjectId
+
 //db = require('db'),
 //server = require('server');
 
@@ -29,8 +26,8 @@ exports.addUser = function(req, res, next) {
 
         
     var user = new Player({
-        "pfirstName": req.params.pfirstName,
-        "plastName": req.params.plastName,
+        "pFirstName": req.params.pFirstName,
+        "pLastName": req.params.pLastName,
         "pEmail": req.params.pEmail,
         "pBirthday": req.params.pBirthday,
         "pPassword": req.params.pPassword,

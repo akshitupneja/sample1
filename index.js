@@ -5,9 +5,12 @@ var restify = require('restify');
 
 
 
+
+
 //Database models
 var Player = require(__dirname + "/models/player");
 var Team = require(__dirname + "/models/teams");
+
 
 //Controllers
 var teamController = require(__dirname + "/controllers/teamController");
@@ -30,7 +33,7 @@ server = restify.createServer({ name: SERVER_NAME });
 
 
 //Connect to Hosted DB
-mongoose.connect(mongoDB);
+mongoose.connect(mongoDB, {useMongoClient: true});
 var db = mongoose.connection; //store Database connection
 
 server.listen(PORT, function () {
@@ -46,17 +49,25 @@ db.once('open', function() {
 
 
 
+// Allow the use of POST
+server.use(restify.fullResponse());
+
+// Maps req.body to req.params so there is no switching between them
+server.use(restify.bodyParser());
+
 //**************** METHODS ******************************
 
 // Team Start
-server.post("/api/createTeam", teamController.createTeam)
-server.get("/api/viewTeam/:id", teamController.viewTeam)
-server.post("/api/createUser", loginController.addUser)
-// Team End
+server.post("/api/createTeam", teamController.createTeam);
+server.get("/api/viewTeam/:id", teamController.viewTeam);
+server.post("/api/createUser", loginController.addUser);
+
+console.log("qbc");
+// Team Endß
 
 
 
 
 
 module.exports = server;
-module.exports = db;
+

@@ -4,11 +4,11 @@ var Schema = mongoose.Schema;
 
 var playerSchema = new Schema({
     pId: {type: Schema.Types.ObjectId},
-    pfirstName: {type: String},
-    plastName: {type: String},
-    pBirthday: {type: Date, default: Date.now},
-    pEmail: {type: String},
-    pPassword: {type: String},
+    pFirstName:  String,
+    pLastName: String,
+    pBirthday: {type: Date, default: Date.now()},
+    pEmail: String,
+    pPassword: String,
     pLoginType: {type: String, enum: ['Form', 'Google', 'Facebook'], default: "Form"},
     pAuthenticated: {type: Boolean, default: "false"},
     pAccountStatus: {type: Boolean, default: "true"},
@@ -18,9 +18,9 @@ var playerSchema = new Schema({
         country : String,
         pinCode : String
     }],
-    pBio: {type: String},
-    pHeight: {type: Number},
-    pWeight: {type: Number}
+    pBio: String,
+    pHeight:  Number,
+    pWeight: Number
 });
 
 var Player = mongoose.model('Player', playerSchema);
