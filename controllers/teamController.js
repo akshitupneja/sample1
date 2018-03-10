@@ -14,7 +14,7 @@ exports.createTeam = function(req, res, next) {
     });
     
 
-    console.log('Adding Team: ' + JSON.stringify(user));
+    console.log('Adding Team: ' + JSON.stringify(team));
     team.save(function (err) {
         if (err) {
             res.send({'Status':'Error','Message':err});

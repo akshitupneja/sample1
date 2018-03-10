@@ -49,22 +49,24 @@ exports.addUser = function(req, res, next) {
 
 //login system for user
 exports.loginUser = function(req, res)  {
-    var userId = req.params._id;
+    var pEmail = req.params.pEmail;
     var hashCode = req.params.pPassword;
     var encHashCode = SHA1(hashCode);
     console.log('Login User Password : ' + hashCode);
 
     Player.findOne({
-        "pEmail": req.body.email, 'pPassword': encHashCode}, function(err, user) {
+        "pEmail": pEmail, 'pPassword': encHashCode}, function(err, user) {
         if (err) throw err;
         if (!user) {
+            console.log("Username" + pEmail);
+            //console.log("Id" + req.params._id);
+
           res.send({Status:'Error', Message: "Authentication failed. User not found."});
+
         } else if (user) {
-          if (!user.comparePassword(req.body.password)) {
-            res.send({Status:'Error', Message: "Authentication failed. Wrong password."});
-          } else {
-            res.send({Status:'Success',userProfile, Message: "Logged In"});
-          }
+        
+            res.send({Status:'Success', Message: "Logged In", user});
+          
         }
       });
 }
