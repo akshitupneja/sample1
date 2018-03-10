@@ -8,8 +8,14 @@ var restify = require('restify');
 
 
 //Database models
-var Player = require(__dirname + "/models/player");
+var Player = require(__dirname + "/models/players");
 var Team = require(__dirname + "/models/teams");
+var Events = require(__dirname + "/models/events");
+var Blogs = require(__dirname + "/models/blogs");
+var Gallery = require(__dirname + "/models/gallery");
+var Members = require(__dirname + "/models/members");
+
+
 
 
 //Controllers

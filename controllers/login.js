@@ -30,7 +30,7 @@ exports.addUser = function(req, res, next) {
         "pLastName": req.params.pLastName,
         "pEmail": req.params.pEmail,
         "pBirthday": req.params.pBirthday,
-        "pPassword": req.params.pPassword,
+        "pPassword": SHA1(req.params.pPassword),
         "pLoginType": req.params.pLoginType,
         "pAuthenticated": req.params.pAuthenticated,
         "pAccountStatus": req.params.pAccountStatus,
