@@ -7,12 +7,7 @@ var eventsSchema = new Schema({
     edate:  {type: Date},
     eTime: {type: Date},
     eType: {type: String, enum: ['Game', 'Training', 'Race', 'Social', 'Tournament', 'Meeting'], default: "Game"},
-    eAddress : [{
-        street: String,
-        city : String,
-        country : String,
-        pinCode : String
-    }],
+    eAddress : {type : String},
     eVenue: String,
     eNotes:  Number,
     eCreator: {type: Schema.Types.ObjectId, ref : 'Player'}
