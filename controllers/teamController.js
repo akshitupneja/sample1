@@ -4,22 +4,26 @@ ObjectId = mongoose.Types.ObjectId
 
 //Create Team
 exports.createTeam = function(req, res, next) {
-    var teamModel = new Team(req.body);
-    teamModel.save(function(err, team) {
+    var team = new Team({
+        "tName": req.params.tName,
+        "tSports": req.params.tSports,
+        "tGender": req.params.tGender,
+        "tAgeGroup": req.params.tAgeGroup,
+        "tAddress": req.params.tAddress,
+        "tPic": req.params.tPic
+    });
+    
+
+    console.log('Adding Team: ' + JSON.stringify(user));
+    team.save(function (err) {
         if (err) {
-            res.status(500);
-            res.json({
-                type: false,
-                data: "Error occured: " + err
-            })
+            res.send({'Status':'Error','Message':err});
         } else {
-            console.log("PASSED");
-            res.json({
-                type: true,
-                data: team
-            })
+            console.log("Response Sent: %s", team);
+            res.send({'Status':'Success',"Message":"Team has been added successfully","Team":team});
         }
-    })
+    });
+
 }
 
 //Get Team
@@ -27,22 +31,12 @@ exports.createTeam = function(req, res, next) {
 exports.viewTeam = function(req, res, next) {
     Team.findById(new ObjectId(req.params.id), function(err, team) {
         if (err) {
-            res.status(500);
-            res.json({
-                type: false,
-                data: "Error occured: " + err
-            })
+            res.send({'Status':'Error','Message':err});
         } else {
             if (team) {
-                res.json({
-                    type: true,
-                    data: team
-                })
+                res.send({'Status':'Success',"Message":"Team Found","Team":team});
             } else {
-                res.json({
-                    type: false,
-                    data: "Team: " + req.params.id + " not found"
-                })
+                res.send({'Status':'Failure',"Message":"Team: " + req.params.id + " not found"});
             }
         }
     })

@@ -12,12 +12,7 @@ var playerSchema = new Schema({
     pLoginType: {type: String, enum: ['Form', 'Google', 'Facebook'], default: "Form"},
     pAuthenticated: {type: Boolean, default: "false"},
     pAccountStatus: {type: Boolean, default: "true"},
-    pAddress : [{
-        street: String,
-        city : String,
-        country : String,
-        pinCode : String
-    }],
+    pAddress : {type: String},
     pBio: String,
     pHeight:  Number,
     pWeight: Number

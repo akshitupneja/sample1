@@ -1,14 +1,4 @@
-/*
-    Project Name: Patient Data Clinical Management
-    Author: Yashkumar Sompura
-    College ID: 300967186
-    Subject: Node JS project
-    keywords: RESTFull API development
-    description: Users.js file for provide all functionality of users collection
-    Note: SHA1 encryption code taken from
-            http://coursesweb.net/javascript/sha1-encrypt-data_cs
 
-*/
 
 var mongoose = require('mongoose'),
 Player = mongoose.model("Player"),
@@ -57,7 +47,48 @@ exports.addUser = function(req, res, next) {
 
 
 
+//login system for user
+exports.loginUser = function(req, res)  {
+    var userId = req.params._id;
+    var hashCode = req.params.pPassword;
+    var encHashCode = SHA1(hashCode);
+    console.log('Login User Password : ' + hashCode);
 
+    Player.findOne({
+        "pEmail": req.body.email, 'pPassword': encHashCode}, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+          res.send({Status:'Error', Message: "Authentication failed. User not found."});
+        } else if (user) {
+          if (!user.comparePassword(req.body.password)) {
+            res.send({Status:'Error', Message: "Authentication failed. Wrong password."});
+          } else {
+            res.send({Status:'Success',userProfile, Message: "Logged In"});
+          }
+        }
+      });
+}
+
+
+
+//Update user by his/her id and requested field.
+exports.updateUser = function(req, res) {
+    var id = req.params.id;
+    var user = req.body;
+    console.log('Updating user: ' + id);
+    console.log(JSON.stringify(user));
+
+        Player.update({'_id':new mongo.ObjectID(id)}, user, {safe:true}, function(err, result) {
+            if (err) {
+                console.log('Error updating user: ' + err);
+                res.send({Status:'Error', Message: "Error while updating User"});
+            } else {
+                console.log('' + result + ' document(s) updated');
+                res.send({Status:'Error', Message: "Error while updating User", user});
+            }
+        });
+   
+}
 
 function SHA1(msg) {
     function rotate_left(n,s) {
