@@ -20,7 +20,7 @@ var Members = require(__dirname + "/models/members");
 
 //Controllers
 var teamController = require(__dirname + "/controllers/teamController");
-var loginController = require(__dirname + "/controllers/loginController");
+var playerController = require(__dirname + "/controllers/playerController");
 
 
 //connection string for hosted MongoDB
@@ -69,9 +69,9 @@ console.log("qbc");
 // Team End
 
 //Login User
-server.post("/api/createUser", loginController.addUser);
-server.post("/api/loginUser", loginController.loginUser);
-server.put("/api/updateUser/:id", loginController.updateUser);
+server.post("/api/players", playerController.addUser);
+server.post("/api/player/login", playerController.loginUser);
+server.put("/api/updateUser/:id", playerController.updateUser);
 
 
 module.exports = server;

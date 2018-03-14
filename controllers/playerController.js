@@ -24,18 +24,34 @@ exports.addUser = function(req, res, next) {
         "pLoginType": req.params.pLoginType,
         "pAuthenticated": req.params.pAuthenticated,
         "pAccountStatus": req.params.pAccountStatus,
-        "pAddress": req.params.pAddress,    
+        "pAddress": req.params.pAddress,  
+        "pGender": req.params.pGender,  
         "pBio": req.params.pBio,
         "pHeight": req.params.pHeight,
         "pWeight": req.params.pWeight
     });
     
+    
 
     console.log('Adding user: ' + JSON.stringify(user));
     user.save(function (err) {
+
         if (err) {
             res.send({'Status':'Error','Message':err});
-        } else {
+        } else if (user.pFirstName == "") {
+            console.log("Empty First Name, Sending Error Message");
+            res.send({'Status':'Error',"Message":"Empty First Name"});
+        }else if (user.pLastName == "") {
+            console.log("Empty Last Name, Sending Error Message");
+            res.send({'Status':'Error',"Message":"Empty Last Name"});
+        }else if (user.pPassword == "") {
+            console.log("Empty Password , Sending Error Message");
+            res.send({'Status':'Error',"Message":"Empty Password"});
+        }else if (user.pEmail == "") {
+            console.log("Empty Email, Sending Error Message");
+            res.send({'Status':'Error',"Message":"Empty Email"});
+        }
+        else{
             console.log("Response Sent: %s", user);
             res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
         }
@@ -49,13 +65,13 @@ exports.addUser = function(req, res, next) {
 
 //login system for user
 exports.loginUser = function(req, res)  {
-    var pEmail = req.params.pEmail;
+    var pUsername = req.params.pEmail;
     var hashCode = req.params.pPassword;
     var encHashCode = SHA1(hashCode);
-    console.log('Login User Password : ' + hashCode);
+    console.log('Login User Hashcode : ' + hashCode);
 
     Player.findOne({
-        "pEmail": pEmail, 'pPassword': encHashCode}, function(err, user) {
+        "pEmail": pUsername, 'pPassword': encHashCode}, function(err, user) {
         if (err) throw err;
         if (!user) {
             console.log("Username" + pEmail);
