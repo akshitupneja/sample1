@@ -34,7 +34,7 @@ exports.createTeam = function(req, res, next) {
             res.send({'Status':'Success',"Message":"Team has been added successfully","Team":team});
             console.log("Team Id = "+ team.id + "Player Id = "+ req.params.pId);
             var status = "Captain"
-            var mappingId = insertMember(team.id,req.params.pId,status);
+            var mappingId = insertMember(team._id,req.params.pId,status);
             console.log("Record Inserted in Members with Member ID :"+ mappingId);
         
         }
