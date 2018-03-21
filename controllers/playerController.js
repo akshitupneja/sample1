@@ -28,7 +28,8 @@ exports.addUser = function(req, res, next) {
         "pGender": req.params.pGender,  
         "pBio": req.params.pBio,
         "pHeight": req.params.pHeight,
-        "pWeight": req.params.pWeight
+        "pWeight": req.params.pWeight,
+        "pAnroidId": req.params.pAnroidId
     });
     
     

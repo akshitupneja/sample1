@@ -7,7 +7,8 @@ var gallerySchema = new Schema({
     gCaptionName:  {type: String},
     gPath: {type: String},
     gUploader: {type: Schema.Types.ObjectId, ref : 'Player'},
-    tId: {type: Schema.Types.ObjectId, ref : 'Team'}
+    tId: {type: Schema.Types.ObjectId, ref : 'Team'},
+    created_at: {type: Date, default: Date.now()}
 });
 
 var Gallery = mongoose.model('Gallery', gallerySchema);

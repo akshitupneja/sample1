@@ -18,6 +18,7 @@ var playerSchema = new Schema({
     pHeight:  Number,
     pWeight: Number,
     pPic: String,
+    pAndroidId: String,
     created_at: {type: Date, default: Date.now()}
 });
 

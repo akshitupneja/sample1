@@ -7,7 +7,8 @@ var blogsSchema = new Schema({
     bTitle:  {type: String},
     bMessage: {type: String},
     bPoster: {type: Schema.Types.ObjectId, ref : 'Player'},
-    tID: {type: Schema.Types.ObjectId, ref : 'Team'}
+    tID: {type: Schema.Types.ObjectId, ref : 'Team'},
+    created_at: {type: Date, default: Date.now()}
 });
 
 var Blogs = mongoose.model('Blogs', blogsSchema);

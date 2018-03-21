@@ -9,7 +9,8 @@ var teamSchema = new Schema({
     tGender: {type: String, enum: ['Male', 'Female', 'Both'], default: "Male"},
     tAgeGroup: {type: String, enum: ['Under 13', '13 - 18', '18+'], default: "18+"},
     tAddress : {type: String},
-    tPic: {type: String}
+    tPic: {type: String},
+    created_at: {type: Date, default: Date.now()}
 });
 
 var Team = mongoose.model('Team', teamSchema);
