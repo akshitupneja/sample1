@@ -17,6 +17,7 @@ var playerSchema = new Schema({
     pBio: String,
     pHeight:  Number,
     pWeight: Number,
+    pPic: String,
     created_at: {type: Date, default: Date.now}
 });
 
