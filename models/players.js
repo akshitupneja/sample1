@@ -18,7 +18,7 @@ var playerSchema = new Schema({
     pHeight:  Number,
     pWeight: Number,
     pPic: String,
-    created_at: {type: Date, default: Date.now}
+    created_at: {type: Date, default: Date.now()}
 });
 
 var Player = mongoose.model('Player', playerSchema);
