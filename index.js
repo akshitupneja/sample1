@@ -2,6 +2,7 @@
 //PRE REQUISITES
 var mongoose = require('mongoose');
 var restify = require('restify');
+var async = require('async');
 
 
 
@@ -63,7 +64,10 @@ server.use(restify.bodyParser());
 
 // Team Start
 server.post("/api/:playerId/teams", teamController.createTeam);
-server.get("/api/viewTeam/:id", teamController.viewTeam);
+server.get("/api/viewTeam/:id", teamController.viewTeambyId);
+server.get("/api/:playerId/view/teams", teamController.viewTeambyPlayer);
+
+
 
 console.log("qbc");
 // Team End
