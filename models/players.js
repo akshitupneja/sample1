@@ -9,13 +9,15 @@ var playerSchema = new Schema({
     pBirthday: {type: Date, default: Date.now()},
     pEmail: String,
     pPassword: String,
+    pPhone: Number,
     pLoginType: {type: String, enum: ['Form', 'Google', 'Facebook'], default: "Form"},
     pAuthenticated: {type: Boolean, default: "false"},
     pAccountStatus: {type: Boolean, default: "true"},
     pAddress : {type: String},
     pBio: String,
     pHeight:  Number,
-    pWeight: Number
+    pWeight: Number,
+    created_at: {type: Date, default: Date.now}
 });
 
 var Player = mongoose.model('Player', playerSchema);

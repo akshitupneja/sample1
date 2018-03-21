@@ -61,6 +61,32 @@ exports.addUser = function(req, res, next) {
 }
 
 
+//login system for user for Google
+exports.loginUserGoogle = function(req, res)  {
+    var pUsername = req.params.pEmail;
+    var loginType = req.params.pLoginType;
+    //var encHashCode = SHA1(hashCode);
+   // console.log('Login User Hashcode : ' + hashCode);
+
+    Player.findOne({
+        'pEmail': pUsername, 'pLoginType': loginType}, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+            console.log("Username" + pUsername);
+            //console.log("Id" + req.params._id);
+
+          res.send({Status:'Error', Message: "Authentication failed. User not found."});
+
+        } else if (user) {
+        
+            res.send({Status:'Success', Message: "Logged In", user});
+          
+        }
+      });
+}
+
+
+
 
 
 //login system for user
