@@ -29,9 +29,11 @@ exports.addUser = function(req, res, next) {
         "pBio": req.params.pBio,
         "pHeight": req.params.pHeight,
         "pWeight": req.params.pWeight,
+        "pPhone": req.params.pPhone,
+        "pPic": req.params.pPic,
         "pAnroidId": req.params.pAnroidId
     });
-    
+    console.log('Request Received: ' + JSON.stringify(req));
     
 
     console.log('Adding user: ' + JSON.stringify(user));
