@@ -151,9 +151,10 @@ exports.viewTeambyPlayer = function (req, res, next) {
             //res.send({"team":result});
         }
         function sending() {
-            res.send({ "team": result });
+            //res.send({ "team": result });
         }
 
+        res.send({ "team": result });
         setTimeout(sending, 3000);
 
         //callback(JSON.stringify({"team": JSON.parse(result)}));

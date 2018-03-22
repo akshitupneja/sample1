@@ -76,7 +76,7 @@ console.log("qbc");
 server.post("/api/players", playerController.addUser);
 server.post("/api/player/login", playerController.loginUser);
 server.put("/api/updateUser/:id", playerController.updateUser);
-server.post("/api/player/login/google1", playerController.loginUserGoogle);
+//server.post("/api/player/login/google1", playerController.loginUserGoogle);
 
 module.exports = server;
 

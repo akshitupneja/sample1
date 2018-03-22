@@ -63,20 +63,46 @@ exports.addUser = function(req, res, next) {
 
 
 //login system for user for Google
-exports.loginUserGoogle = function(req, res)  {
-    var pUsername = req.params.pEmail;
-    var loginType = req.params.pLoginType;
+exports.loginUserGoogle = function(req, res, next)  {
+    var user = new Player({
+        "pFirstName": req.params.pFirstName,
+        "pLastName": req.params.pLastName,
+        "pEmail": req.params.pEmail,
+        "pBirthday": req.params.pBirthday,
+        "pPassword": SHA1(req.params.pPassword),
+        "pLoginType": req.params.pLoginType,
+        "pAuthenticated": req.params.pAuthenticated,
+        "pAccountStatus": req.params.pAccountStatus,
+        "pPhone": req.params.pPhone,
+        "pAddress": req.params.pAddress,  
+        "pGender": req.params.pGender,  
+        "pBio": req.params.pBio,
+        "pPic": req.params.pPic,
+        "pHeight": req.params.pHeight,
+        "pWeight": req.params.pWeight,
+        "pAnroidId": req.params.pAnroidId
+    });
     //var encHashCode = SHA1(hashCode);
    // console.log('Login User Hashcode : ' + hashCode);
 
     Player.findOne({
-        'pEmail': pUsername, 'pLoginType': loginType}, function(err, user) {
+        'pEmail': user.pUsername, 'pLoginType': user.pLoginType}, function(err, user) {
         if (err) throw err;
         if (!user) {
             console.log("Username" + pUsername);
             //console.log("Id" + req.params._id);
+            user.save(function (err) {
 
-          res.send({Status:'Error', Message: "Authentication failed. User not found."});
+                if (err) {
+                    res.send({'Status':'Error','Message':err});
+                } 
+                else{
+                    console.log("Response Sent: %s", user);
+                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
+                }
+            });
+
+          //res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
         } else if (user) {
         
