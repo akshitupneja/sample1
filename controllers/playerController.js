@@ -31,7 +31,7 @@ exports.addUser = function(req, res, next) {
         "pWeight": req.params.pWeight,
         "pPhone": req.params.pPhone,
         "pPic": req.params.pPic,
-        "pAnroidId": req.params.pAndroidId
+        "pAndroidId": req.params.pAndroidId
     });
     console.log('Request Received: ' + req.params);
     
