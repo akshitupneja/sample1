@@ -152,7 +152,7 @@ exports.updateUser = function(req, res) {
     console.log(' Player data to be updated: ' + JSON.stringify(user));
     console.log(JSON.stringify(user));
 
-        Player.update({'_id':new mongo.ObjectID(id)}, user, {safe:true}, function(err, result) {
+        Player.update({'_id':new ObjectID(id)}, user, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating User"});
