@@ -33,7 +33,7 @@ exports.addUser = function(req, res, next) {
         "pPic": req.params.pPic,
         "pAnroidId": req.params.pAnroidId
     });
-    console.log('Request Received: ' + JSON.stringify(req));
+    console.log('Request Received: ' + req);
     
 
     console.log('Adding user: ' + JSON.stringify(user));
