@@ -157,7 +157,7 @@ exports.updateUser = function(req, res) {
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating User"});
             } else {
-                console.log('' + result + ' document(s) updated');
+                console.log('Player document updated with data ' + JSON.stringify(user));
                 res.send({Status:'Success', Message: "Player Updated","Profile": user});
             }
         });
