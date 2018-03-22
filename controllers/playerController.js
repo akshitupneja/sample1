@@ -148,7 +148,8 @@ exports.loginUser = function(req, res)  {
 exports.updateUser = function(req, res) {
     var id = req.params.id;
     var user = req.body;
-    console.log('Updating user: ' + id);
+    console.log('Updating Player: ' + id);
+    console.log(' Player data to be updated: ' + JSON.stringify(user));
     console.log(JSON.stringify(user));
 
         Player.update({'_id':new mongo.ObjectID(id)}, user, {safe:true}, function(err, result) {
