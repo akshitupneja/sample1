@@ -75,23 +75,23 @@ exports.loginUserGoogle = function(req, res, next)  {
         "pLoginType": req.params.pLoginType,
         "pAuthenticated": req.params.pAuthenticated,
         "pAccountStatus": req.params.pAccountStatus,
-        "pPhone": req.params.pPhone,
         "pAddress": req.params.pAddress,  
         "pGender": req.params.pGender,  
         "pBio": req.params.pBio,
-        "pPic": req.params.pPic,
         "pHeight": req.params.pHeight,
         "pWeight": req.params.pWeight,
-        "pAnroidId": req.params.pAnroidId
+        "pPhone": req.params.pPhone,
+        "pPic": req.params.pPic,
+        "pAndroidId": req.params.pAndroidId
     });
     //var encHashCode = SHA1(hashCode);
-   // console.log('Login User Hashcode : ' + hashCode);
+console.log('Login Resquest Received via Google : ' +  'Email :'+ user.pEmail);
 
     Player.findOne({
         'pEmail': user.pUsername, 'pLoginType': user.pLoginType}, function(err, user) {
         if (err) throw err;
         if (!user) {
-            console.log("Username" + pUsername);
+            console.log("Email id :" + pUsername + " Not Found in DB. Hence adding a new record");
             //console.log("Id" + req.params._id);
             user.save(function (err) {
 
@@ -99,8 +99,9 @@ exports.loginUserGoogle = function(req, res, next)  {
                     res.send({'Status':'Error','Message':err});
                 } 
                 else{
-                    console.log("Response Sent: %s", user);
+                    console.log("Adding Player via Google Sign In: ", + JSON.stringify(user));
                     res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
+                    console.log("Google Signup Successful");
                 }
             });
 
