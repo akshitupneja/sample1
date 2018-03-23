@@ -66,7 +66,7 @@ exports.addUser = function(req, res, next) {
 
 //login system for user for Google
 exports.loginUserGoogle = function(req, res, next)  {
-    var users = new Player({
+    var sample = new Player({
         "pFirstName": req.params.pFirstName,
         "pLastName": req.params.pLastName,
         "pEmail": req.params.pEmail,
@@ -85,31 +85,30 @@ exports.loginUserGoogle = function(req, res, next)  {
         "pAndroidId": req.params.pAndroidId
     });
     //var encHashCode = SHA1(hashCode);
-console.log('Login Resquest Received via Google : ' +  'Email :'+ users.pEmail);
+console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail);
 
     Player.findOne({
-        "pEmail": users.pEmail, "pLoginType": users.pLoginType},users, function(err, result) {
+        "pEmail": sample.pEmail, "pLoginType": sample.pLoginType}, function(err, users) {
         if (err) throw err;
-        if (!result) {
-            console.log("Email id :" +users.pEmail + " Not Found in DB. Hence adding a new record");
-            //console.log("Id" + req.params._id);
-            users.save(function (err) {
+        if (!users) {
+            console.log("Email id : "+ sample.pEmail + "Not Found in DB. Hence adding a new record");
+            sample.save(function (err) {
 
                 if (err) {
                     res.send({'Status':'Error','Message':err});
                 } 
                 else{
-                    console.log("Adding Player via Google Sign In: ", + JSON.stringify(users));
-                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":users});
+                    console.log("Adding Player via Google Sign In: " + JSON.stringify(sample));
+                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":sample});
                     console.log("Google Signup Successful");
                 }
             });
 
           //res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
-        } else if (result) {
+        } else if (users) {
         
-            res.send({Status:'Success', Message: "Logged In", result});
+            res.send({Status:'Success', Message: "Logged In", users});
           
         }
       });
