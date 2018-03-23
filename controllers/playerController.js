@@ -88,10 +88,10 @@ exports.loginUserGoogle = function(req, res, next)  {
 console.log('Login Resquest Received via Google : ' +  'Email :'+ users.pEmail);
 
     Player.findOne({
-        "pEmail": users.pEmail, "pLoginType": users.pLoginType}, function(err, users) {
+        "pEmail": users.pEmail, "pLoginType": users.pLoginType}, function(err, result) {
         if (err) throw err;
-        if (!users) {
-            console.log("Email id :" +users.pEmail + " Not Found in DB. Hence adding a new record");
+        if (!result) {
+            console.log("Email id :" +result.pEmail + " Not Found in DB. Hence adding a new record");
             //console.log("Id" + req.params._id);
             users.save(function (err) {
 
@@ -99,17 +99,17 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ users.pEmail);
                     res.send({'Status':'Error','Message':err});
                 } 
                 else{
-                    console.log("Adding Player via Google Sign In: ", + JSON.stringify(users));
-                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":users});
+                    console.log("Adding Player via Google Sign In: ", + JSON.stringify(result));
+                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":result});
                     console.log("Google Signup Successful");
                 }
             });
 
           //res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
-        } else if (users) {
+        } else if (result) {
         
-            res.send({Status:'Success', Message: "Logged In", users});
+            res.send({Status:'Success', Message: "Logged In", result});
           
         }
       });
