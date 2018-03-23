@@ -91,7 +91,7 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ user.pEmail);
         'pEmail': user.pEmail, 'pLoginType': user.pLoginType}, function(err, user) {
         if (err) throw err;
         if (!user) {
-            console.log("Email id :" + pEmail + " Not Found in DB. Hence adding a new record");
+            console.log("Email id :" +user.pEmail + " Not Found in DB. Hence adding a new record");
             //console.log("Id" + req.params._id);
             user.save(function (err) {
 
