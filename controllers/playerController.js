@@ -93,7 +93,7 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ users.pEmail);
         if (!users) {
             console.log("Email id :" +users.pEmail + " Not Found in DB. Hence adding a new record");
             //console.log("Id" + req.params._id);
-            user.save(function (err) {
+            users.save(function (err) {
 
                 if (err) {
                     res.send({'Status':'Error','Message':err});
