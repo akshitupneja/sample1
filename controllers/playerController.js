@@ -91,16 +91,16 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ users.pEmail);
         "pEmail": users.pEmail, "pLoginType": users.pLoginType},users, function(err, result) {
         if (err) throw err;
         if (!result) {
-            console.log("Email id :" +result.pEmail + " Not Found in DB. Hence adding a new record");
+            console.log("Email id :" +users.pEmail + " Not Found in DB. Hence adding a new record");
             //console.log("Id" + req.params._id);
-            result.save(function (err) {
+            users.save(function (err) {
 
                 if (err) {
                     res.send({'Status':'Error','Message':err});
                 } 
                 else{
-                    console.log("Adding Player via Google Sign In: ", + JSON.stringify(result));
-                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":result});
+                    console.log("Adding Player via Google Sign In: ", + JSON.stringify(users));
+                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":users});
                     console.log("Google Signup Successful");
                 }
             });
