@@ -88,12 +88,12 @@ exports.loginUserGoogle = function(req, res, next)  {
 console.log('Login Resquest Received via Google : ' +  'Email :'+ users.pEmail);
 
     Player.findOne({
-        "pEmail": users.pEmail, "pLoginType": users.pLoginType}, function(err, result) {
+        "pEmail": users.pEmail, "pLoginType": users.pLoginType},users, function(err, result) {
         if (err) throw err;
         if (!result) {
             console.log("Email id :" +result.pEmail + " Not Found in DB. Hence adding a new record");
             //console.log("Id" + req.params._id);
-            users.save(function (err) {
+            result.save(function (err) {
 
                 if (err) {
                     res.send({'Status':'Error','Message':err});
