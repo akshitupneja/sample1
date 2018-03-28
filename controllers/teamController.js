@@ -92,6 +92,8 @@ function insertMember(teamId, playerId, status) {
 var allTeam = [];
 var result = [];
 var response1;
+
+
 //Get All Teams for a player
 
 exports.viewTeambyPlayer = function (req, res, next) {
@@ -130,19 +132,32 @@ exports.viewTeambyPlayer = function (req, res, next) {
 
             //response1 = findTeams(allTeam);
 
-            for (var x in allTeam) {
-                val = allTeam[x];
-                Team.find({
-                    "_id": new ObjectId(val)
+
+            Team.find({
+                    "_id": { $in: new ObjectId(allTeam) }
                 }, function (error, team) {
                     if (!team) {
                         console.log(" No Team found with id : " + val);
                     } else if (team) {
-                        result.push(team);
+                      //  result.push(team);
                         console.log(" Team found, Result is :" + team);
+                        res.send({ "team": team });
                     }
                 });
-            }
+
+            // for (var x in allTeam) {
+            //     val = allTeam[x];
+            //     Team.find({
+            //         "_id": new ObjectId(val)
+            //     }, function (error, team) {
+            //         if (!team) {
+            //             console.log(" No Team found with id : " + val);
+            //         } else if (team) {
+            //             result.push(team);
+            //             console.log(" Team found, Result is :" + team);
+            //         }
+            //     });
+            // }
 
 
 
@@ -154,8 +169,8 @@ exports.viewTeambyPlayer = function (req, res, next) {
             //res.send({ "team": result });
         }
 
-        res.send({ "team": result });
-        setTimeout(sending, 3000);
+      //  res.send({ "team": result });
+       // setTimeout(sending, 3000);
 
         //callback(JSON.stringify({"team": JSON.parse(result)}));
     });
