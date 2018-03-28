@@ -134,7 +134,7 @@ exports.viewTeambyPlayer = function (req, res, next) {
 
 
             Team.find({
-                    "_id": { $in: new ObjectId(allTeam) }
+                    "_id": { $in: allTeam }
                 }, function (error, team) {
                     if (!team) {
                         console.log(" No Team found with id : " + val);
