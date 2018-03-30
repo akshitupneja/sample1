@@ -138,6 +138,29 @@ exports.updatePassword = function(req, res) {
 
 
 
+// Update Fingerprint
+
+exports.updateFingerPrint = function(req, res) {
+    var id = req.params.id;
+    var androidId = req.params.pAndroidId;
+    console.log('Updating Player: ' + id);
+    console.log('androidId to be updated: ' + req.params.pAndroidId);
+    console.log('Player Fingerprint: ' + androidId);
+
+        Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pAndroidId': androidId } },{new: true}, function(err, result) {
+            if (err) {
+                console.log('Error updating FingerPrint: ' + err);
+                res.send({Status:'Error', Message: "Error while updating Fingerprint"});
+            } else {
+                console.log('Player document updated with data ' + JSON.stringify(result));
+                res.send({Status:'Success', Message: "Player Updated","Profile": result});
+            }
+        });
+   
+}
+
+
+
 
 //login system for user
 exports.loginUser = function(req, res)  {
