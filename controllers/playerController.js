@@ -129,9 +129,8 @@ exports.loginUser = function(req, res)  {
         "pEmail": pUsername, 'pPassword': encHashCode}, function(err, user) {
         if (err) throw err;
         if (!user) {
-            console.log("Username" + pEmail);
+            console.log("Username" + pUsername);
             //console.log("Id" + req.params._id);
-
           res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
         } else if (user) {
@@ -153,7 +152,7 @@ exports.updateUser = function(req, res) {
     console.log(JSON.stringify(user));
 
         Player.update({'_id':new ObjectId(id)}, user, {safe:true}, function(err, result) {
-            if (err) {
+            if (err) {x
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating User"});
             } else {
