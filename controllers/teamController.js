@@ -8,11 +8,11 @@ exports.createTeam = function (req, res, next) {
     var team = new Team({
         "tName": req.params.tName,
         "tSports": req.params.tSports,
-        "tGender": req.params.tGender,
+        "tGender": req.params.tGender,  
         "tAgeGroup": req.params.tAgeGroup,
         "tAddress": req.params.tAddress,
         "tPic": req.params.tPic,
-        "pId": req.params.pId,
+        "pId": req.params.playerId,
         "tCaptain": req.params.playerId
 
     });

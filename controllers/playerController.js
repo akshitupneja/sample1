@@ -129,8 +129,8 @@ exports.loginUser = function(req, res)  {
         "pEmail": pUsername, 'pPassword': encHashCode}, function(err, user) {
         if (err) throw err;
         if (!user) {
-            console.log("Username" + pUsername);
-            //console.log("Id" + req.params._id);
+            console.log("Username : " + pUsername);
+            console.log("User Not found. Sending response");
           res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
         } else if (user) {
