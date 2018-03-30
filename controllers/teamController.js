@@ -12,7 +12,8 @@ exports.createTeam = function (req, res, next) {
         "tAgeGroup": req.params.tAgeGroup,
         "tAddress": req.params.tAddress,
         "tPic": req.params.tPic,
-        "pId": req.params.pId
+        "pId": req.params.pId,
+        "tCaptain": req.params.playerId
 
     });
 
@@ -165,14 +166,7 @@ exports.viewTeambyPlayer = function (req, res, next) {
 
             //res.send({"team":result});
         }
-        function sending() {
-            //res.send({ "team": result });
-        }
 
-      //  res.send({ "team": result });
-       // setTimeout(sending, 3000);
-
-        //callback(JSON.stringify({"team": JSON.parse(result)}));
     });
 }
 

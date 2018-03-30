@@ -1,5 +1,3 @@
-import { cpus } from 'os';
-
 var mongoose = require('mongoose'),
     Event = mongoose.model("Events"),
     Team = mongoose.model("Team"),

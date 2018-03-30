@@ -15,6 +15,6 @@ var eventsSchema = new Schema({
     eCreator: {type: Schema.Types.ObjectId, ref : 'Player'}
 });
 
-var Events = mongoose.model('Event', eventsSchema);
+var Events = mongoose.model('Events', eventsSchema);
 
 module.exports = Events;

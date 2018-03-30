@@ -22,7 +22,7 @@ var Members = require(__dirname + "/models/members");
 //Controllers
 var teamController = require(__dirname + "/controllers/teamController");
 var playerController = require(__dirname + "/controllers/playerController");
-//var eventController = require(__dirname + "/controllers/eventController");
+var eventController = require(__dirname + "/controllers/eventController");
 
 
 //connection string for hosted MongoDB
@@ -73,8 +73,10 @@ server.get("/api/:playerId/view/teams", teamController.viewTeambyPlayer);
 
 // server.post("/api/:playerId/teams", teamController.createTeam);
 // server.get("/api/viewTeam/:id", teamController.viewTeambyId);
-// server.put("/api/:playerId/teams/:teamId/events", eventController.createEvent);
-// server.get("/api/:playerId/teams/:teamId/events", eventController.getEventbyPlayerAndTeam);
+server.post("/api/:playerId/teams/:teamId/events", eventController.createEvent);
+server.get("/api/:playerId/teams/:teamId/events", eventController.getEventbyPlayerAndTeam);
+server.get("/api/:playerId/teams/:teamId/events/:eventId", eventController.getEventbyId);
+
 
 console.log("qbc");
 // Team End
