@@ -124,7 +124,7 @@ exports.updatePassword = function(req, res) {
     console.log('Password to be updated: ' + req.params.pPassword);
     console.log('Player encrypted Password: ' + password);
 
-        Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { name: "Naomi" } },{new: true}, function(err, result) {
+        Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pPassword': password } },{new: true}, function(err, result) {
             if (err) {
                 console.log('Error updating Password: ' + err);
                 res.send({Status:'Error', Message: "Error while updating Password"});
