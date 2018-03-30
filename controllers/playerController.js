@@ -115,6 +115,27 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail)
 }
 
 
+// Update Password
+
+exports.updatePassword = function(req, res) {
+    var id = req.params.id;
+    var password = SHA1(req.params.pPassword);
+    console.log('Updating Player: ' + id);
+    console.log('Password to be updated: ' + req.params.pPassword);
+    console.log('Player encrypted Password: ' + password);
+
+        Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { name: "Naomi" } },{new: true}, function(err, result) {
+            if (err) {
+                console.log('Error updating Password: ' + err);
+                res.send({Status:'Error', Message: "Error while updating Password"});
+            } else {
+                console.log('Player document updated with data ' + JSON.stringify(result));
+                res.send({Status:'Success', Message: "Player Updated","Profile": result});
+            }
+        });
+   
+}
+
 
 
 

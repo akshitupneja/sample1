@@ -12,7 +12,6 @@ exports.createTeam = function (req, res, next) {
         "tAgeGroup": req.params.tAgeGroup,
         "tAddress": req.params.tAddress,
         "tPic": req.params.tPic,
-        "pId": req.params.playerId,
         "tCaptain": req.params.playerId
     });
 
@@ -33,6 +32,8 @@ exports.createTeam = function (req, res, next) {
             console.log("Response Sent: %s", team);
             res.send({ 'Status': 'Success', "Message": "Team has been added successfully", "Team": team });
             console.log("Team Id = " + team.id + "Player Id = " + req.params.playerId);
+            console.log("Adding record to Members Table with Player ID: " + req.params.playerId);
+            
             var status = "Captain"
             if (req.params.playerId == null) {
                 console.log("Cannot insert record in Member due to null player Id");

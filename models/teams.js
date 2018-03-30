@@ -10,6 +10,7 @@ var teamSchema = new Schema({
     tAgeGroup: {type: String, enum: ['Under 13', '13 - 18', '18+'], default: "18+"},
     tAddress : {type: String},
     tPic: {type: String},
+    tCaptain: {type: Schema.Types.ObjectId, ref: 'Player'},
     created_at: {type: Date, default: Date.now()}
 });
 

@@ -85,6 +85,7 @@ console.log("qbc");
 server.post("/api/players", playerController.addUser);
 server.post("/api/player/login", playerController.loginUser);
 server.put("/api/player/:id", playerController.updateUser);
+server.put("/api/player/:id/password", playerController.updatePassword);
 server.post("/api/player/login/social", playerController.loginUserGoogle);
 
 module.exports = server;
