@@ -14,10 +14,9 @@ exports.createTeam = function (req, res, next) {
         "tPic": req.params.tPic,
         "pId": req.params.playerId,
         "tCaptain": req.params.playerId
-
     });
 
-    console.log("pId" + req.params.pId);
+    console.log("playerId: " + req.params.playerId);
 
     console.log('Adding Team: ' + JSON.stringify(team));
     team.save(function (err) {
@@ -33,13 +32,13 @@ exports.createTeam = function (req, res, next) {
         else {
             console.log("Response Sent: %s", team);
             res.send({ 'Status': 'Success', "Message": "Team has been added successfully", "Team": team });
-            console.log("Team Id = " + team.id + "Player Id = " + req.params.pId);
+            console.log("Team Id = " + team.id + "Player Id = " + req.params.playerId);
             var status = "Captain"
-            if (req.params.pId == null) {
+            if (req.params.playerId == null) {
                 console.log("Cannot insert record in Member due to null player Id");
 
             } else {
-                var mappingId = insertMember(team._id, req.params.pId, status);
+                var mappingId = insertMember(team._id, req.params.playerId, status);
                 console.log("Record Inserted in Members with Member ID :" + mappingId);
             }
 
