@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     Team = mongoose.model("Team"),
+    Player = mongoose.model("Player"),
     Member = mongoose.model("Member"),
     ObjectId = mongoose.Types.ObjectId
 
@@ -94,7 +95,7 @@ function insertMember(teamId, playerId, status) {
 
 var allTeam = [];
 var result = [];
-var response1;
+
 
 
 //Get All Teams for a player
@@ -107,9 +108,7 @@ exports.viewTeambyPlayer = function (req, res, next) {
 
 
 
-    Member.find({
-        "pId": new ObjectId(req.params.playerId)
-    }, { "tId": 1, "_id": 0 }, function (err, member) {
+    Member.find({"pId": new ObjectId(req.params.playerId)}, { "tId": 1, "_id": 0 }, function (err, member) {
         if (err) throw err;
         if (!member) {
             console.log("Mapping not found in Members Table, Player ID : " + req.params.playerId);
@@ -137,7 +136,7 @@ exports.viewTeambyPlayer = function (req, res, next) {
                     "_id": { $in: allTeam }
                 }, function (error, team) {
                     if (!team) {
-                        console.log(" No Team found with id : " + val);
+                        console.log(" No Team found " );
                     } else if (team) {
                       //  result.push(team);
                         console.log(" Team found, Result is :" + team);
@@ -210,13 +209,58 @@ exports.addMemberToTeam = function (req, res, next) {
                     }
                 }
             });
-
-        
-           
+  
           
         }
       });   
 
       next();
 }
+
+
+
+
+//Get Players in the Team
+exports.viewPlayersInTeam = function (req, res, next) {
+
+    var allPlayer = [];
+    
+    Member.find({"tId": new ObjectId(req.params.teamId)}, { "pId": 1, "_id": 0 }, function (err, member) {
+        if (err) throw err;
+        if (member.length == 0) {
+            console.log("Mapping not found in Members Table, Team ID : " + req.params.teamId);
+    
+
+        } else if (member.length) {
+
+            var temp = JSON.stringify(member);
+            temp = JSON.parse(temp);
+            console.log("Length " + temp.length);
+            for (i = 0; i < temp.length; i++) {
+                var newTemp = temp[i];
+                console.log(newTemp.pId);
+                allPlayer[i] = newTemp.pId;
+                //newTemp = JSON.parse(newTemp);
+            }
+            console.log("Mapping  found in Members Table, Team ID : " + req.params.teamId);
+            console.log("Member List : " + allPlayer);
+
+
+
+            Player.find({ "_id": { $in: allPlayer }}, function (error, player) {
+                if (!player) {
+                    console.log(" No player found " );
+                } else if (player) {
+                
+                    console.log(" Team found, Result is :" + player);
+                    res.send({ "Team": player });
+                }
+            });
+            
+        }
+
+    });
+
+}
+
 

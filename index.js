@@ -68,6 +68,7 @@ server.post("/api/:playerId/teams", teamController.createTeam);
 server.get("/api/viewTeam/:id", teamController.viewTeambyId);
 server.get("/api/:playerId/view/teams", teamController.viewTeambyPlayer);
 server.post("/api/:captain/teams/:teamId/add/:player", teamController.addMemberToTeam);
+server.get("/api/team/:teamId/players", teamController.viewPlayersInTeam);
 
 
 // //Events
