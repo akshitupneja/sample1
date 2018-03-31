@@ -88,6 +88,7 @@ server.put("/api/player/:id", playerController.updateUser);
 server.put("/api/player/:id/password", playerController.updatePassword);
 server.put("/api/player/:id/fingerprint", playerController.updateFingerPrint);
 server.post("/api/player/login/social", playerController.loginUserGoogle);
+server.get("/api/player/search/:name", playerController.searchUser);
 
 module.exports = server;
 

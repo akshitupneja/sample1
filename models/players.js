@@ -7,7 +7,7 @@ var playerSchema = new Schema({
     pFirstName:  String,
     pLastName: String,
     pBirthday: {type: Date, default: Date.now()},
-    pEmail: String,
+    pEmail: {type: String, unique: true},
     pPassword: String,
     pPhone: Number,
     pLoginType: {type: String, enum: ['Form', 'Google', 'Facebook'], default: "Form"},

@@ -207,6 +207,34 @@ exports.updateUser = function(req, res) {
    
 }
 
+
+//Search for user
+exports.searchUser = function(req, res)  {
+    var sample = req.params.name;
+   
+    console.log('Searching User with String : ' + sample);
+
+    Player.find({ $or :
+        [{"pFirstName": { "$regex": sample, "$options": "i" }}, {"pLastName": { "$regex": sample, "$options": "i" }}]}, function(err, user) {
+        if (err) throw err;
+        if (user.length == 0) {
+
+            console.log("No User found. Sending response");
+            res.send({Status:'Success', Message: "No User Found with the searched Criteria", user});
+          //res.send({Status:'Error', Message: "Authentication failed. User not found."});
+
+        } else if (user) {
+        
+            res.send({Status:'Success', Message: user.length + " PLayers found" , user});
+          
+        }
+      });
+}
+
+
+
+
+
 function SHA1(msg) {
     function rotate_left(n,s) {
         var t4 = ( n<<s ) | (n>>>(32-s));
