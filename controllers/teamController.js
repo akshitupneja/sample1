@@ -90,6 +90,8 @@ function insertMember(teamId, playerId, status) {
     });
     return member.id
 }
+
+
 var allTeam = [];
 var result = [];
 var response1;
@@ -131,9 +133,6 @@ exports.viewTeambyPlayer = function (req, res, next) {
 
 
 
-            //response1 = findTeams(allTeam);
-
-
             Team.find({
                     "_id": { $in: allTeam }
                 }, function (error, team) {
@@ -170,9 +169,54 @@ exports.viewTeambyPlayer = function (req, res, next) {
     });
 }
 
-function findTeams(allTeam) {
 
+// Add a Player into a Team
 
-    return result;
+exports.addMemberToTeam = function (req, res, next) {
+    
+    var captain = req.params.captain;
+    var team = req.params.teamId;
+    var player = req.params.player;
 
-};
+    console.log("Captain: " + captain);
+    console.log("Team: " + team);
+    console.log("Player to be added: " + player);
+    console.log("Adding Member to team :" );
+    
+    Team.find({ $and :
+        [{"tCaptain": captain }, {"_id": team}]}, function(err, result) {
+        if (err) throw err;
+        if (result.length == 0) {
+
+            console.log("No Team found. Sending response");
+            res.send({Status:'Error', Message: "Only Captains are authorized to add players in team "});
+
+        } else if (result) {
+
+            Member.find({ $and :
+                [{"tId": team }, {"pId": player}]}, function (err, abc) {
+                if (err) {
+                    res.send({ 'Status': 'Error', 'Message': err });
+                } else {
+                    if (abc.length != 0) {
+                        res.send({ 'Status': 'Failure', "Message": "PLayer is already in the team"});
+                        console.log("asabsdsa");
+                        console.log("Player in the team with memberId : "+abc);
+                          
+                    } else {
+                        var memberId = insertMember(team, player, "Player");
+                        console.log("Player added to team wih memberId :" +memberId);
+                        res.send({Status:'Success', Message: "Player added to the team"});
+                    }
+                }
+            });
+
+        
+           
+          
+        }
+      });   
+
+      next();
+}
+

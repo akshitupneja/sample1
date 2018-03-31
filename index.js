@@ -67,6 +67,7 @@ server.use(restify.bodyParser());
 server.post("/api/:playerId/teams", teamController.createTeam);
 server.get("/api/viewTeam/:id", teamController.viewTeambyId);
 server.get("/api/:playerId/view/teams", teamController.viewTeambyPlayer);
+server.post("/api/:captain/teams/:teamId/add/:player", teamController.addMemberToTeam);
 
 
 // //Events
@@ -91,4 +92,3 @@ server.post("/api/player/login/social", playerController.loginUserGoogle);
 server.get("/api/player/search/:name", playerController.searchUser);
 
 module.exports = server;
-
