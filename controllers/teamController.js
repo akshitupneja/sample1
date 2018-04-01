@@ -253,7 +253,7 @@ exports.viewPlayersInTeam = function (req, res, next) {
                 } else if (player) {
                 
                     console.log(" Team found, Result is :" + player);
-                    res.send({ "Team": player });
+                    res.send({ "Players": player });
                 }
             });
             
@@ -264,3 +264,50 @@ exports.viewPlayersInTeam = function (req, res, next) {
 }
 
 
+// Remove a player from a Team
+
+exports.removePlayerfromTeam = function (req, res, next) {
+
+    var captain = req.params.captain;
+    var team = req.params.teamId;
+    var player = req.params.player;
+
+    console.log("Captain: " + captain);
+    console.log("Team: " + team);
+    console.log("Player to be Removes: " + player);
+    console.log("Removing Member from team :" );
+
+    Team.find({ $and :
+        [{"tCaptain": captain }, {"_id": team}]},function(err,result){
+            console.log("sabjdbasbdak");
+            console.log("length: " +result.length);
+            console.log("result: " +result);
+
+        if (err) throw err;
+        if (result.length == 0) {
+            console.log("Not Authorized to Remove a player ");
+    
+
+        } else if (result.length) {
+
+            Member.findOneAndRemove({ $and :
+                [{"tId": team }, {"pId": player}]},function(err,res1){
+
+                if(err) throw err;
+                if (!res1) {
+                    console.log("Player not mapped with the team ");
+                    res.send({Status:'Success', Message: "Player deleted from the team"});
+                }else if (res1){
+               res.send({Status:'Success', Message: "Player deleted from the team"});
+                }
+
+            });
+        
+        
+        }    
+
+
+
+
+    });
+}
