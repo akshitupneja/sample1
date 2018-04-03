@@ -119,20 +119,42 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail)
 
 exports.updatePassword = function(req, res) {
     var id = req.params.id;
-    var password = SHA1(req.params.pPassword);
+    var pUsername = req.params.pEmail;
+    var newPassword = SHA1(req.params.newPassword);
+    var oldPassword = SHA1(req.params.pPassword);
+
     console.log('Updating Player: ' + id);
     console.log('Password to be updated: ' + req.params.pPassword);
     console.log('Player encrypted Password: ' + password);
 
-        Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pPassword': password } },{new: true}, function(err, result) {
-            if (err) {
-                console.log('Error updating Password: ' + err);
-                res.send({Status:'Error', Message: "Error while updating Password"});
-            } else {
-                console.log('Player document updated with data ' + JSON.stringify(result));
-                res.send({Status:'Success', Message: "Player Updated","Profile": result});
-            }
-        });
+    Player.findOne({
+        "pEmail": pUsername, 'pPassword': oldPassword}, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+            console.log("Username : " + pUsername);
+            console.log("User Not found. Sending response");
+          res.send({Status:'Error', Message: "Authentication failed. User not found."});
+
+        } else if (user) {
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pPassword': newPassword } },{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Password"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+          
+        }
+      });
+
+
+
+        
    
 }
 
@@ -146,6 +168,7 @@ exports.updateFingerPrint = function(req, res) {
     console.log('Updating Player: ' + id);
     console.log('androidId to be updated: ' + req.params.pAndroidId);
     console.log('Player Fingerprint: ' + androidId);
+    
 
         Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pAndroidId': androidId } },{new: true}, function(err, result) {
             if (err) {
@@ -225,7 +248,7 @@ exports.searchUser = function(req, res)  {
 
         } else if (user) {
         
-            res.send({Status:'Success', Message: user.length + " PLayers found" , user});
+            res.send({Status:'Success', Message: user.length + " Players found" , user});
           
         }
       });
