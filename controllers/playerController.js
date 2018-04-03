@@ -124,8 +124,8 @@ exports.updatePassword = function(req, res) {
     var oldPassword = SHA1(req.params.pPassword);
 
     console.log('Updating Player: ' + id);
-    console.log('Password to be updated: ' + req.params.pPassword);
-    console.log('Player encrypted Password: ' + password);
+    console.log('Old Password' + oldPassword);
+    console.log('Player encrypted Password: ' + newPassword);
 
     Player.findOne({
         "pEmail": pUsername, 'pPassword': oldPassword}, function(err, user) {
