@@ -2,6 +2,8 @@ var mongoose = require('mongoose'),
     Team = mongoose.model("Team"),
     Player = mongoose.model("Player"),
     Member = mongoose.model("Member"),
+    Event = mongoose.model("Events"),
+    Blog = mongoose.model("Blogs"),
     ObjectId = mongoose.Types.ObjectId
 
 //Create Team
@@ -310,4 +312,86 @@ exports.removePlayerfromTeam = function (req, res, next) {
 
 
     });
+}
+
+
+
+// Terminate Team. Termination of Team will lead to deletion of all the events, removing Mapping from Members table and 
+
+
+
+exports.terminateTeam = function (req, res, next) {
+
+    var captain = req.params.captain;
+    var team = req.params.teamId;
+
+    Team.find({ $and :
+        [{"tCaptain": captain }, {"_id": team}]}, function(err, result) {
+        if (err) throw err;
+        if (result.length == 0) {
+
+            console.log("No Team found. Sending response");
+            res.send({Status:'Error', Message: "Only Captains are authorized to Terminate Team "});
+
+        } else if (result) {
+
+
+            Member.deleteMany({"tId": team },function(err,member){
+
+                if(err) throw err;
+                if (!member) {
+                    console.log("Player not mapped with the team ");
+                    //res.send({Status:'Success', Message: "Player deleted from the team"});
+                }else if (member){
+               //res.send({Status:'Success', Message: "Player deleted from the team"});
+               console.log("Members removed ");
+                }
+
+            });
+            Event.deleteMany({"tId": team },function(err,event){
+
+                if(err) throw err;
+                if (!event) {
+                    console.log("Event not mapped with the team ");
+                    //res.send({Status:'Success', Message: "Player deleted from the team"});
+                }else if (event){
+                    console.log("Events removed ");
+                }
+
+            });
+
+            Blog.deleteMany({"tId": team },function(err,blog){
+
+                if(err) throw err;
+                if (!blog) {
+                    console.log("Blog not mapped with the team ");
+                    //res.send({Status:'Success', Message: "Player deleted from the team"});
+                }else if (blog){
+                    console.log("Blogs removed ");
+                }
+
+            });
+
+            Team.findOneAndRemove(
+                {"_id": team },function(err,team1){
+
+                if(err) throw err;
+                if (!team1) {
+                    console.log("Team Not Found ");
+                    res.send({Status:'Success', Message: "Team Not found"});
+                }else if (team1){
+                    console.log("Team deleted ");
+               res.send({Status:'Success', Message: "Team Deletion Successfull"});
+                }
+
+            });
+  
+          
+        }
+      });   
+
+      next();
+
+
+
 }

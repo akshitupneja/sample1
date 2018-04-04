@@ -70,6 +70,7 @@ server.get("/api/:playerId/view/teams", teamController.viewTeambyPlayer);
 server.post("/api/:captain/teams/:teamId/add/:player", teamController.addMemberToTeam);
 server.get("/api/team/:teamId/players", teamController.viewPlayersInTeam);
 server.del("/api/:captain/teams/:teamId/delete/:player", teamController.removePlayerfromTeam);
+server.del("/api/:captain/teams/:teamId/terminate", teamController.terminateTeam);
 
 
 
@@ -87,7 +88,6 @@ server.get("/api/:playerId/teams/:teamId/events/:eventId", eventController.getEv
 
 
 console.log("qbc");
-// Team End
 
 //Login User
 server.post("/api/players", playerController.addUser);
