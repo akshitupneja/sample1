@@ -39,7 +39,7 @@ exports.addUser = function(req, res, next) {
         "pEmail": user.pEmail, "pLoginType": user.pLoginType}, function(err, users) {
         if (err) throw err;
         if (!users) {
-            console.log("Email id : "+ sample.pEmail + "Not Found in DB. Hence adding a new record");
+            console.log("Email id : "+ user.pEmail + "Not Found in DB. Hence adding a new record");
             user.save(function (err) {
 
                 if (err) {
