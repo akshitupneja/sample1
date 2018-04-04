@@ -35,30 +35,67 @@ exports.addUser = function(req, res, next) {
     });
     console.log('Request Received: ' + req.params);
     
+    Player.findOne({
+        "pEmail": user.pEmail, "pLoginType": user.pLoginType}, function(err, users) {
+        if (err) throw err;
+        if (!users) {
+            console.log("Email id : "+ sample.pEmail + "Not Found in DB. Hence adding a new record");
+            user.save(function (err) {
 
-    console.log('Adding user: ' + JSON.stringify(user));
-    user.save(function (err) {
+                if (err) {
+                    res.send({'Status':'Error','Message':err});
+                } else if (user.pFirstName == "") {
+                    console.log("Empty First Name, Sending Error Message");
+                    res.send({'Status':'Error',"Message":"Empty First Name"});
+                }else if (user.pLastName == "") {
+                    console.log("Empty Last Name, Sending Error Message");
+                    res.send({'Status':'Error',"Message":"Empty Last Name"});
+                }else if (user.pPassword == "") {
+                    console.log("Empty Password , Sending Error Message");
+                    res.send({'Status':'Error',"Message":"Empty Password"});
+                }else if (user.pEmail == "") {
+                    console.log("Empty Email, Sending Error Message");
+                    res.send({'Status':'Error',"Message":"Empty Email"});
+                }
+                else{
+                    console.log('Adding user: ' + JSON.stringify(user));
+                    console.log("Response Sent: %s", user);
+                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
+                }
+            });
 
-        if (err) {
-            res.send({'Status':'Error','Message':err});
-        } else if (user.pFirstName == "") {
-            console.log("Empty First Name, Sending Error Message");
-            res.send({'Status':'Error',"Message":"Empty First Name"});
-        }else if (user.pLastName == "") {
-            console.log("Empty Last Name, Sending Error Message");
-            res.send({'Status':'Error',"Message":"Empty Last Name"});
-        }else if (user.pPassword == "") {
-            console.log("Empty Password , Sending Error Message");
-            res.send({'Status':'Error',"Message":"Empty Password"});
-        }else if (user.pEmail == "") {
-            console.log("Empty Email, Sending Error Message");
-            res.send({'Status':'Error',"Message":"Empty Email"});
+          //res.send({Status:'Error', Message: "Authentication failed. User not found."});
+
+        } else if (users) {
+        
+            res.send({Status:'Failure', Message: "Email Already Registered"});
+          
         }
-        else{
-            console.log("Response Sent: %s", user);
-            res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
-        }
-    });
+      });
+
+  
+    // user.save(function (err) {
+
+    //     if (err) {
+    //         res.send({'Status':'Error','Message':err});
+    //     } else if (user.pFirstName == "") {
+    //         console.log("Empty First Name, Sending Error Message");
+    //         res.send({'Status':'Error',"Message":"Empty First Name"});
+    //     }else if (user.pLastName == "") {
+    //         console.log("Empty Last Name, Sending Error Message");
+    //         res.send({'Status':'Error',"Message":"Empty Last Name"});
+    //     }else if (user.pPassword == "") {
+    //         console.log("Empty Password , Sending Error Message");
+    //         res.send({'Status':'Error',"Message":"Empty Password"});
+    //     }else if (user.pEmail == "") {
+    //         console.log("Empty Email, Sending Error Message");
+    //         res.send({'Status':'Error',"Message":"Empty Email"});
+    //     }
+    //     else{
+    //         console.log("Response Sent: %s", user);
+    //         res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
+    //     }
+    // });
 
     
 }
