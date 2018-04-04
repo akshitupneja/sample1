@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var eventsSchema = new Schema({
     eId: {type: Schema.Types.ObjectId},
     eName:  {type: String},
-    edate:  {type: String},
+    eDate:  {type: String},
     eTime: {type: String},
     eType: {type: String, enum: ['Game', 'Training', 'Race', 'Social', 'Tournament', 'Meeting'], default: "Game"},
     eAddress : {type : String},
