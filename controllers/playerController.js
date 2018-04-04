@@ -33,7 +33,7 @@ exports.addUser = function(req, res, next) {
         "pPic": req.params.pPic,
         "pAndroidId": req.params.pAndroidId
     });
-    console.log('Request Received: ' + req.params);
+    console.log('Request Received: ' + user);
     
     Player.findOne({
         "pEmail": user.pEmail, "pLoginType": user.pLoginType}, function(err, users) {
@@ -66,9 +66,10 @@ exports.addUser = function(req, res, next) {
 
           //res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
-        } else if (users) {
+            } else if (users) {
+                console.log ("abcd")
         
-            res.send({Status:'Failure', Message: "Email Already Registered"});
+            res.send({Status:"Failure", Message: "Email Already Registered"});
           
         }
       });
