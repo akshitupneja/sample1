@@ -95,6 +95,14 @@ server.post("/api/player/login", playerController.loginUser);
 server.put("/api/player/:id", playerController.updateUser);
 server.put("/api/player/:id/password", playerController.updatePassword);
 server.put("/api/player/:id/fingerprint", playerController.updateFingerPrint);
+server.put("/api/player/:id/name", playerController.updateName);
+server.put("/api/player/:id/address", playerController.updateAddress);
+server.put("/api/player/:id/height", playerController.updateHeight);
+server.put("/api/player/:id/weight", playerController.updateWeight);
+server.put("/api/player/:id/pic", playerController.updatePic);
+server.put("/api/player/:id/bio", playerController.updateBio);
+server.put("/api/player/:id/email", playerController.updateEmail);
+server.put("/api/player/:id/phone", playerController.updatePhone);
 server.post("/api/player/login/social", playerController.loginUserGoogle);
 server.get("/api/player/search/:name", playerController.searchUser);
 

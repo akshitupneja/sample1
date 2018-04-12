@@ -34,47 +34,50 @@ exports.addUser = function(req, res, next) {
         "pAndroidId": req.params.pAndroidId
     });
     console.log('Request Received: ' + user);
+
+
+   if (user.pFirstName == "") {
+        console.log("Empty First Name, Sending Error Message");
+        res.send({'Status':'Error',"Message":"Empty First Name"});
+    }else if (user.pLastName == "") {
+        console.log("Empty Last Name, Sending Error Message");
+        res.send({'Status':'Error',"Message":"Empty Last Name"});
+    }else if (user.pPassword == "") {
+        console.log("Empty Password , Sending Error Message");
+        res.send({'Status':'Error',"Message":"Empty Password"});
+    }else if (user.pEmail == "") {
+        console.log("Empty Email, Sending Error Message");
+        res.send({'Status':'Error',"Message":"Empty Email"});
+    }else{
+        Player.findOne({
+            "pEmail": user.pEmail, "pLoginType": user.pLoginType}, function(err, users) {
+            if (err) throw err;
+            if (!users) {
+                console.log("Email id : "+ user.pEmail + "Not Found in DB. Hence adding a new record");
+                user.save(function (err) {
     
-    Player.findOne({
-        "pEmail": user.pEmail, "pLoginType": user.pLoginType}, function(err, users) {
-        if (err) throw err;
-        if (!users) {
-            console.log("Email id : "+ user.pEmail + "Not Found in DB. Hence adding a new record");
-            user.save(function (err) {
+                    if (err) {
+                        res.send({'Status':'Error','Message':err});
+                    }
+                    else{
+                        console.log('Adding user: ' + JSON.stringify(user));
+                        console.log("Response Sent: %s", user);
+                        res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
+                    }
+                });
+    
+              //res.send({Status:'Error', Message: "Authentication failed. User not found."});
+    
+                } else if (users) {
+                    console.log ("abcd")
+            
+                res.send({Status:"Failure", Message: "Email Already Registered"});
+              
+            }
+          });
 
-                if (err) {
-                    res.send({'Status':'Error','Message':err});
-                } else if (user.pFirstName == "") {
-                    console.log("Empty First Name, Sending Error Message");
-                    res.send({'Status':'Error',"Message":"Empty First Name"});
-                }else if (user.pLastName == "") {
-                    console.log("Empty Last Name, Sending Error Message");
-                    res.send({'Status':'Error',"Message":"Empty Last Name"});
-                }else if (user.pPassword == "") {
-                    console.log("Empty Password , Sending Error Message");
-                    res.send({'Status':'Error',"Message":"Empty Password"});
-                }else if (user.pEmail == "") {
-                    console.log("Empty Email, Sending Error Message");
-                    res.send({'Status':'Error',"Message":"Empty Email"});
-                }
-                else{
-                    console.log('Adding user: ' + JSON.stringify(user));
-                    console.log("Response Sent: %s", user);
-                    res.send({'Status':'Success',"Message":"Player has been added successfully","Profile":user});
-                }
-            });
-
-          //res.send({Status:'Error', Message: "Authentication failed. User not found."});
-
-            } else if (users) {
-                console.log ("abcd")
-        
-            res.send({Status:"Failure", Message: "Email Already Registered"});
-          
-        }
-      });
-
-  
+    }
+    
     // user.save(function (err) {
 
     //     if (err) {
@@ -434,3 +437,225 @@ function SHA1(msg) {
 
 
 
+// Update Name
+
+exports.updateName = function(req, res) {
+    var id = req.params.id;
+    var pFirstName = req.params.pFirstName;
+    var pLastName = req.params.pLastName;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating Name : ' + pFirstName + pLastName);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: [{ 'pFirstName': pFirstName }, { 'pLastName': pLastName }]},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Name"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+// Update Email
+
+exports.updateEmail = function(req, res) {
+    var id = req.params.id;
+    var pEmail = req.params.pEmail;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating Email : ' + pEmail);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pEmail': pEmail }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+
+// Update Phone
+
+exports.updatePhone = function(req, res) {
+    var id = req.params.id;
+    var pPhone = req.params.pPhone;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating Phone : ' + pPhone);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pPhone': pPhone }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+
+// Update Address
+
+exports.updateAddress = function(req, res) {
+    var id = req.params.id;
+    var pAddress = req.params.pAddress;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating Address : ' + pAddress);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pAddress': pAddress }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+
+
+
+
+
+
+// Update Bio
+
+exports.updateBio = function(req, res) {
+    var id = req.params.id;
+    var pBio = req.params.pBio;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating pBio : ' + pBio);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pBio': pBio }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+
+
+// Update Bio
+
+exports.updateHeight = function(req, res) {
+    var id = req.params.id;
+    var pHeight = req.params.pHeight;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating pHeight : ' + pHeight);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pHeight': pHeight }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+
+
+
+// Update weight
+
+exports.updateWeight = function(req, res) {
+    var id = req.params.id;
+    var pWeight = req.params.pWeight;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating pHeight : ' + pWeight);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pWeight': pWeight }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating Password: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+
+
+// Update weight
+
+exports.updatePic = function(req, res) {
+    var id = req.params.id;
+    var pPic = req.params.pPic;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating pPic : ' + pPic);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pPic': pPic }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating pPic: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
