@@ -661,7 +661,7 @@ exports.updatePic = function(req, res) {
 }
 
 
-// Update weight
+// Update Birthday
 
 exports.updateBirthday = function(req, res) {
     var id = req.params.id;

@@ -6,7 +6,7 @@ var playerSchema = new Schema({
     pId: {type: Schema.Types.ObjectId},
     pFirstName:  String,
     pLastName: String,
-    pBirthday: {type: Date, default: Date.now()},
+    pBirthday: {type: String, default: Date.now()},
     pEmail: {type: String, unique: true},
     pPassword: String,
     pPhone: Number,
