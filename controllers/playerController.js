@@ -445,12 +445,12 @@ exports.updateName = function(req, res) {
     var pLastName = req.params.pLastName;
  
     console.log('Updating Player: ' + id);
-    console.log('Updating Name : ' + pFirstName + pLastName);
+    console.log('Updating Name : ' + pFirstName + " "+ pLastName);
  
         
             //res.send({Status:'Success', Message: "Logged In", user});
 
-            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: [{ 'pFirstName': pFirstName }, { 'pLastName': pLastName }]},{new: true}, function(err, result) {
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pFirstName': pFirstName , 'pLastName': pLastName }},{new: true}, function(err, result) {
                 if (err) {
                     console.log('Error updating Password: ' + err);
                     res.send({Status:'Error', Message: "Error while updating Name"});
@@ -648,6 +648,32 @@ exports.updatePic = function(req, res) {
             //res.send({Status:'Success', Message: "Logged In", user});
 
             Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pPic': pPic }},{new: true}, function(err, result) {
+                if (err) {
+                    console.log('Error updating pPic: ' + err);
+                    res.send({Status:'Error', Message: "Error while updating Email"});
+                } else {
+                    console.log('Player document updated with data ' + JSON.stringify(result));
+                    res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                }
+            });
+  
+   
+}
+
+
+// Update weight
+
+exports.updateBirthday = function(req, res) {
+    var id = req.params.id;
+    var pBirthday = req.params.pBirthday;
+ 
+    console.log('Updating Player: ' + id);
+    console.log('Updating pBirthday : ' + pBirthday);
+ 
+        
+            //res.send({Status:'Success', Message: "Logged In", user});
+
+            Player.findOneAndUpdate({'_id':new ObjectId(id)}, { $set: { 'pBirthday': pBirthday }},{new: true}, function(err, result) {
                 if (err) {
                     console.log('Error updating pPic: ' + err);
                     res.send({Status:'Error', Message: "Error while updating Email"});
