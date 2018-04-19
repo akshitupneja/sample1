@@ -55,7 +55,9 @@ exports.createTeam = function (req, res, next) {
 //Get Team
 
 exports.viewTeambyId = function (req, res, next) {
-    Team.findById(new ObjectId(req.params.id), function (err, team) {
+    Team.find({
+        "_id": { $in: req.params.id}
+    }, function (err, team) {
         if (err) {
             res.send({ 'Status': 'Error', 'Message': err });
         } else {

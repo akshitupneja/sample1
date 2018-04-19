@@ -15,6 +15,7 @@ var Events = require(__dirname + "/models/events");
 var Blogs = require(__dirname + "/models/blogs");
 var Gallery = require(__dirname + "/models/gallery");
 var Members = require(__dirname + "/models/members");
+var StepCounter = require(__dirname + "/models/stepCounter");
 
 
 
