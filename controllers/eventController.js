@@ -94,7 +94,7 @@ exports.updateEvent = function(req, res) {
     console.log(JSON.stringify(user));
 
 
-        Event.update({'_id':new ObjectId(id),}, user, {safe:true}, function(err, result) {
+        Event.update({'_id':new ObjectId(id),}, event, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating event: ' + err);
                 res.send({Status:'Error', Message: "Error while updating Event"});

@@ -72,7 +72,7 @@ server.post("/api/:captain/teams/:teamId/add/:player", teamController.addMemberT
 server.get("/api/team/:teamId/players", teamController.viewPlayersInTeam);
 server.del("/api/:captain/teams/:teamId/delete/:player", teamController.removePlayerfromTeam);
 server.del("/api/:captain/teams/:teamId/terminate", teamController.terminateTeam);
-
+server.put("/api/:playerId/teams/:teamId", teamController.updateTeambyId);
 
 
 
