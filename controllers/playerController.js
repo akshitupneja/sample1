@@ -685,3 +685,25 @@ exports.updateBirthday = function(req, res) {
   
    
 }
+
+
+
+
+
+//Get Player
+
+exports.viewPlayerbyId = function (req, res, next) {
+    Player.find({
+        "_id": { $in: req.params.id}
+    }, function (err, player) {
+        if (err) {
+            res.send({ 'Status': 'Error', 'Message': err });
+        } else {
+            if (player) {
+                res.send({ 'Status': 'Success', "Message": "Player Found", "Team": player });
+            } else {
+                res.send({ 'Status': 'Failure', "Message": "Player: " + req.params.id + " not found" });
+            }
+        }
+    });
+}
