@@ -397,3 +397,30 @@ exports.terminateTeam = function (req, res, next) {
 
 
 }
+
+
+//update team
+
+
+
+//Update user by his/her id and requested field.
+exports.updateTeambyId = function(req, res) {
+    var playerId = req.params.playerId;
+    var teamId = req.body.teamId;
+    var body = req.body
+    console.log('Updating Team: ' + teamId);
+    console.log(' Team data to be updated: ' + JSON.stringify(body));
+    //console.log(JSON.stringify(user));
+
+        Team.update({ $and :
+            [{"tCaptain": playerId }, {"_id": teamId}]}, body, {safe:true}, function(err, result) {
+            if (err) {
+                console.log('Error updating user: ' + err);
+                res.send({Status:'Error', Message: "Error while updating Team"});
+            } else {
+                console.log('Team document updated with data ' + JSON.stringify(body));
+                res.send({Status:'Success', Message: "Player Updated","Profile": result});
+            }
+        });
+   
+}

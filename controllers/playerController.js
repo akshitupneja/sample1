@@ -260,7 +260,7 @@ exports.updateUser = function(req, res) {
     console.log(JSON.stringify(user));
 
         Player.update({'_id':new ObjectId(id)}, user, {safe:true}, function(err, result) {
-            if (err) {x
+            if (err) {
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating User"});
             } else {

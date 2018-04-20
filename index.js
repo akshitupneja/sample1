@@ -107,6 +107,7 @@ server.put("/api/player/:id/email", playerController.updateEmail);
 server.put("/api/player/:id/phone", playerController.updatePhone);
 server.post("/api/player/login/social", playerController.loginUserGoogle);
 server.get("/api/player/search/:name", playerController.searchUser);
+server.get("/api/player/:id", playerController.viewPlayerbyId);
 
 
 module.exports = server;
