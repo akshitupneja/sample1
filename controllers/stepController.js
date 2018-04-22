@@ -7,73 +7,51 @@ var mongoose = require('mongoose'),
 
 
 //add New Event into the Database
-exports.createEvent = function(req, res, next) {
+exports.insertStepCount = function(req, res, next) {
 
         
-    var event = new Event({
-        "eName": req.params.eName,
-        "eDate": req.params.edate,
-        "eTime": req.params.eTime,
-        "eType": req.params.eType,
-        "eAddress": req.params.eAddress,
-        "eVenue": req.params.eVenue,
-        "eNotes": req.params.eNotes,
-        "tId": req.params.teamId,
-        "eCreator": req.params.playerId
-    });
-    console.log('Adding Event: ' + JSON.stringify(event));
+  
+       var playerId = req.params.playerId,
+        sDate = req.params.sDate,
+        sCount = req.params.sCount;
 
-    event.save(function (err) {
+    console.log('Adding Step Counter: ');
+
+    Steps.update({ $and :
+        [{"pId": playerId }, {"sDate": sDate}]}, { $set: { 'pId': playerId, 'sCount': sCount, 'sDate': sDate }}, {upsert: true, multi: true, safe:true}, function(err, result) {
         if (err) {
-            res.send({ 'Status': 'Error', 'Message': err });
-        }
-        else {
-            console.log("Response Sent: %s", event);
-            res.send({ 'Status': 'Success', "Message": "Event has been added successfully", "Event": event });
+            console.log('Error updating user: ' + err);
+            res.send({Status:'Error', Message: "Error while updating Steps"});
+        } else {
+        
+            res.send({Status:'Success', Message: "Steps Updated", "Profile": result});
         }
     });
 
-next();
-
 }
 
 
-
-
-//Get All Events for a by Player and Team
-exports.getEventbyPlayerAndTeam = function(req, res, next) {
-    Event.find({"eCreator": new ObjectId(req.params.playerId),"tId": new ObjectId(req.params.teamId)}, function(err,events){
-        if(err) {
-            throw err;
-            console.log("Error while finding Event" + err);
-        }
-        if(!events){
-            console.log("No Event found with team id" + req.params.teamId +" and Player id: " + req.params.playerId);
-
-        }else if (events){
-            console.log("Event found with team id" + req.params.teamId +" and Player id: " + req.params.playerId);
-            console.log('Player document updated with data ' + JSON.stringify(events));
-            res.send({Status:'Success', Message: "Events Found","Profile": events});
-        }
-     });
-next();
-
-}
 
 
 //Get Events detail by Id
-exports.getEventbyId = function(req, res, next) {
-    Event.findOne({"_id": new ObjectId(req.params.eventId),"tId": new ObjectId(req.params.teamId)}, function(err,events){
+exports.getStepbyPlayerAndDate = function(req, res, next) {
+
+    var playerId = req.params.playerId,
+    sDate = req.params.sDate;
+
+
+    Steps.findOne({ $and :
+        [{"pId": playerId }, {"sDate": sDate}]}, function(err,result){
         if(err) {
             throw err;
             console.log("Error while finding Event" + err);
         }
-        if(!events){
-            console.log("No Event found with team id" + req.params.teamId +" and Event id: " + req.params.eventId);
-
-        }else if (events){
-            console.log("Event found with team id" + req.params.teamId +" and Event id: " + req.params.eventId);
-            res.send({Status:'Success', Message: "Event Found","Event": events});
+        if(!result){
+            console.log("No Record found for the selected date" + req.params.sDate +" and Player id: " + req.params.playerId);
+            res.send({Status:'Failure', Message: "No Record Found"});
+        }else if (result){
+            console.log("Record found for the selected date" + req.params.sDate +" and Player id: " + req.params.playerId);
+            res.send({Status:'Success', Message: "Record Found","Step": result});
         }
      });
 next();
@@ -82,29 +60,28 @@ next();
 
 
 
+//Get Events detail by Id
+exports.getStepbyPlayer = function(req, res, next) {
 
-//Update user by his/her id and requested field.
-exports.updateEvent = function(req, res) {
-    var eventId = req.params.eventId;
-    var playerId = req.params.eventId;
-    var id = req.params.eventId;
-    var event = req.body;
-    console.log('Updating Player: ' + id);
-    console.log(' Player data to be updated: ' + JSON.stringify(user));
-    console.log(JSON.stringify(user));
+    var playerId = req.params.playerId;
 
 
-        Event.update({'_id':new ObjectId(id),}, user, {safe:true}, function(err, result) {
-            if (err) {
-                console.log('Error updating event: ' + err);
-                res.send({Status:'Error', Message: "Error while updating Event"});
-            } else {
-                console.log('Player document updated with data ' + JSON.stringify(event));
-                res.send({Status:'Success', Message: "Event Updated","Event": event});
-            }
-        });
-   
+    Steps.find({"pId": playerId}, function(err,result){
+        if(err) {
+            throw err;
+            console.log("Error while finding Event" + err);
+        }
+        if(!result){
+            console.log("No Record found for the Player id: " + req.params.playerId);
+            res.send({Status:'Failure', Message: "No Record Found"});
+
+        }else if (result){
+            console.log("Record found for the Player id: " + req.params.playerId);
+            res.send({Status:'Success', Message: "Record Found","Step": result});
+        }
+     });
+next();
+
 }
-    
 
     

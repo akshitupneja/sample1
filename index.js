@@ -24,6 +24,7 @@ var StepCounter = require(__dirname + "/models/stepCounter");
 var teamController = require(__dirname + "/controllers/teamController");
 var playerController = require(__dirname + "/controllers/playerController");
 var eventController = require(__dirname + "/controllers/eventController");
+var stepController = require(__dirname + "/controllers/stepController");
 
 
 //connection string for hosted MongoDB
@@ -109,5 +110,11 @@ server.post("/api/player/login/social", playerController.loginUserGoogle);
 server.get("/api/player/search/:name", playerController.searchUser);
 server.get("/api/player/:id", playerController.viewPlayerbyId);
 
+
+
+//StepCounter
+server.put("/api/player/:playerId/steps", stepController.insertStepCount);
+server.get("/api/player/:playerId/steps", stepController.getStepbyPlayer);
+server.get("/api/player/:playerId/stepsbydate", stepController.getStepbyPlayerAndDate);
 
 module.exports = server;
