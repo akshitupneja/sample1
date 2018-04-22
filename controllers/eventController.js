@@ -89,12 +89,13 @@ exports.updateEvent = function(req, res) {
     var playerId = req.params.eventId;
     var id = req.params.eventId;
     var event = req.body;
-    console.log('Updating Player: ' + id);
-    console.log(' Player data to be updated: ' + JSON.stringify(user));
-    console.log(JSON.stringify(user));
+    console.log('Updating Event: ' + eventId);
+    console.log(' Event data to be updated: ' + JSON.stringify(event));
+    console.log(JSON.stringify(event));
 
 
-        Event.update({'_id':new ObjectId(id),}, event, {safe:true}, function(err, result) {
+        Event.update({ $and :
+            [{"eCreator": playerId }, {"_id": eventId}]}, event, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating event: ' + err);
                 res.send({Status:'Error', Message: "Error while updating Event"});
@@ -105,6 +106,37 @@ exports.updateEvent = function(req, res) {
         });
    
 }
+
+
+
+
+
+//Delete an Event by Id
+exports.deleteEvent = function(req, res) {
+    var eventId = req.params.eventId;
+    var playerId = req.params.eventId;
+
+    console.log(' Deleting an Event with Id:' +eventId + "by Player" + playerId);
+
+
+    Event.findOneAndRemove(
+        { $and :
+            [{"eCreator": playerId }, {"_id": eventId}]},function(err,result){
+
+        if(err) throw err;
+        if (!result) {
+            console.log("Team Not Found ");
+            res.send({Status:'Failure', Message: "Event Not found"});
+        }else if (result){
+            console.log("Team deleted ");
+       res.send({Status:'Success', Message: "Event Deletion Successfull"});
+        }
+
+    });
+
+   
+}
+    
     
 
     

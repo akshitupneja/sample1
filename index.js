@@ -87,7 +87,7 @@ server.put("/api/:playerId/teams/:teamId", teamController.updateTeambyId);
 server.post("/api/:playerId/teams/:teamId/events", eventController.createEvent);
 server.get("/api/:playerId/teams/:teamId/events", eventController.getEventbyPlayerAndTeam);
 server.get("/api/:playerId/teams/:teamId/events/:eventId", eventController.getEventbyId);
-
+server.del("/api/:playerId/teams/:teamId/events/:eventId", eventController.deleteEvent);
 
 console.log("qbc");
 
