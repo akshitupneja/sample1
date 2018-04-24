@@ -12,7 +12,7 @@ exports.createEvent = function(req, res, next) {
         
     var event = new Event({
         "eName": req.params.eName,
-        "eDate": req.params.edate,
+        "eDate": req.params.eDate,
         "eTime": req.params.eTime,
         "eType": req.params.eType,
         "eAddress": req.params.eAddress,
