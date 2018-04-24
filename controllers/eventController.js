@@ -63,7 +63,7 @@ next();
 
 //Get Events detail by Id
 exports.getEventbyId = function(req, res, next) {
-    Event.findOne({"_id": new ObjectId(req.params.eventId),"tId": new ObjectId(req.params.teamId)}, function(err,events){
+    Event.find({"_id": {$in:req.params.eventId},"tId": new ObjectId(req.params.teamId)}, function(err,events){
         if(err) {
             throw err;
             console.log("Error while finding Event" + err);
