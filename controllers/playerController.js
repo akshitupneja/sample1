@@ -149,7 +149,7 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail)
 
         } else if (users) {
             console.log("Google Login Successful");
-        
+            console.log('Sending data back ' + JSON.stringify(users));
             res.send({Status:'Success', Message: "Logged In", users});
           
         }
