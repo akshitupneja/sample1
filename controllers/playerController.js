@@ -148,6 +148,7 @@ console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail)
           //res.send({Status:'Error', Message: "Authentication failed. User not found."});
 
         } else if (users) {
+            console.log("Google Login Successful");
         
             res.send({Status:'Success', Message: "Logged In", users});
           
