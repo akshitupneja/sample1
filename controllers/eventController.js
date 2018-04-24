@@ -114,7 +114,7 @@ exports.updateEvent = function(req, res) {
 //Delete an Event by Id
 exports.deleteEvent = function(req, res) {
     var eventId = req.params.eventId;
-    var playerId = req.params.eventId;
+    var playerId = req.params.playerId;
 
     console.log(' Deleting an Event with Id:' +eventId + "by Player" + playerId);
 
@@ -125,11 +125,11 @@ exports.deleteEvent = function(req, res) {
 
         if(err) throw err;
         if (!result) {
-            console.log("Team Not Found ");
+            console.log("Event Not Found ");
             res.send({Status:'Failure', Message: "Event Not found"});
         }else if (result){
-            console.log("Team deleted ");
-       res.send({Status:'Success', Message: "Event Deletion Successfull"});
+            console.log("Event deleted ");
+       res.send({Status:'Success', Message: "Event Deleted"});
         }
 
     });
