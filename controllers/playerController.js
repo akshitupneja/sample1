@@ -128,7 +128,7 @@ exports.loginUserGoogle = function(req, res, next)  {
     //var encHashCode = SHA1(hashCode);
 console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail);
 
-    Player.findOne({
+    Player.find({
         "pEmail":{ $in: sample.pEmail } , "pLoginType": sample.pLoginType}, function(err, users) {
         if (err) throw err;
         if (!users) {
