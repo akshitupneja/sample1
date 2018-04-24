@@ -129,7 +129,7 @@ exports.loginUserGoogle = function(req, res, next)  {
 console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail);
 
     Player.findOne({
-        "pEmail": sample.pEmail, "pLoginType": sample.pLoginType}, function(err, users) {
+        "pEmail":{ $in: sample.pEmail } , "pLoginType": sample.pLoginType}, function(err, users) {
         if (err) throw err;
         if (!users) {
             console.log("Email id : "+ sample.pEmail + "Not Found in DB. Hence adding a new record");
