@@ -128,8 +128,8 @@ exports.loginUserGoogle = function(req, res, next)  {
     //var encHashCode = SHA1(hashCode);
 console.log('Login Resquest Received via Google : ' +  'Email :'+ sample.pEmail);
 
-    Player.find({
-        "pEmail":{ $in: sample.pEmail } , "pLoginType": sample.pLoginType}, function(err, users) {
+    Player.find({$and :[{
+        "pEmail":{ $in: sample.pEmail } , "pLoginType": sample.pLoginType}]}, function(err, users) {
         if (err) throw err;
         if (!users) {
             console.log("Email id : "+ sample.pEmail + "Not Found in DB. Hence adding a new record");
