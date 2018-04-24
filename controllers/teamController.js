@@ -97,14 +97,16 @@ function insertMember(teamId, playerId, status) {
 }
 
 
-var allTeam = [];
-var result = [];
+
 
 
 
 //Get All Teams for a player
 
 exports.viewTeambyPlayer = function (req, res, next) {
+
+var allTeam = [];
+var result = [];
 
     var playerId = req.params.playerId;
 
