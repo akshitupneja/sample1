@@ -426,8 +426,23 @@ exports.updateTeambyId = function(req, res) {
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating Team"});
             } else {
-                console.log('Team document updated with data ' + JSON.stringify(result));
-                res.send({Status:'Success', Message: "Team Updated","Profile": result});
+
+                Team.find({
+                    "_id": { $in: teamId}
+                }, function (err, team) {
+                    if (err) {
+                        res.send({ 'Status': 'Error', 'Message': err });
+                    } else {
+                        if (team) {
+                            res.send({ 'Status': 'Success', "Message": "Team Updated", "Team": team });
+                        } else {
+                            //res.send({ 'Status': 'Failure', "Message": "Team: " + req.params.id + " not found" });
+                            console.log("Error while finding team")
+                        }
+                    }
+                });
+                //console.log('Team document updated with data ' + JSON.stringify(result));
+                //res.send({Status:'Success', Message: "Team Updated","Profile": result});
             }
         });
    
