@@ -417,7 +417,7 @@ exports.updateTeambyId = function(req, res) {
     tPic = req.params.tPic,
     tCaptain =  req.params.playerId;
     console.log('Updating Team: ' + teamId);
-    console.log(' Team data to be updated: ' + JSON.stringify(body));
+   // console.log(' Team data to be updated: ' + JSON.stringify(body));
     //console.log(JSON.stringify(user));
 
         Team.update({ $and :
