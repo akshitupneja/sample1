@@ -118,7 +118,3 @@ server.get("/api/player/:playerId/steps", stepController.getStepbyPlayer);
 server.get("/api/player/:playerId/stepsbydate", stepController.getStepbyPlayerAndDate);
 
 module.exports = server;
-var KEYMETRICS_PUBLIC="r5c8bmt2fpeb07n"
-var KEYMETRICS_SECRET="vx2t1m9u6r7tkez"
-exports = KEYMETRICS_SECRET;
-exports = KEYMETRICS_PUBLIC;
