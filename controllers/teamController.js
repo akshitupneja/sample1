@@ -409,19 +409,25 @@ exports.terminateTeam = function (req, res, next) {
 exports.updateTeambyId = function(req, res) {
     var playerId = req.params.playerId;
     var teamId = req.body.teamId;
-    var body = req.body
+   var tName = req.params.tName,
+    tSports= req.params.tSports,
+    tGender = req.params.tGender,  
+    tAgeGroup = req.params.tAgeGroup,
+    tAddress = req.params.tAddress,
+    tPic = req.params.tPic,
+    tCaptain =  req.params.playerId;
     console.log('Updating Team: ' + teamId);
     console.log(' Team data to be updated: ' + JSON.stringify(body));
     //console.log(JSON.stringify(user));
 
         Team.update({ $and :
-            [{"tCaptain": playerId }, {"_id": teamId}]}, body, {safe:true}, function(err, result) {
+            [{"tCaptain": playerId }, {"_id": teamId}]}, { $set: { 'tName': tName , 'tSports': tSports ,'tGender': tGender, 'tAgeGroup': tAgeGroup, 'tPic':tPic}}, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating Team"});
             } else {
-                console.log('Team document updated with data ' + JSON.stringify(body));
-                res.send({Status:'Success', Message: "Player Updated","Profile": result});
+                console.log('Team document updated with data ' + JSON.stringify(result));
+                res.send({Status:'Success', Message: "Team Updated","Profile": result});
             }
         });
    
