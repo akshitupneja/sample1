@@ -408,7 +408,7 @@ exports.terminateTeam = function (req, res, next) {
 //Update user by his/her id and requested field.
 exports.updateTeambyId = function(req, res) {
     var playerId = req.params.playerId;
-    var teamId = req.body.teamId;
+    var teamId = req.params.teamId;
    var tName = req.params.tName,
     tSports= req.params.tSports,
     tGender = req.params.tGender,  
