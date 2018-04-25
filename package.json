@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "preinstall": "npm install pm2 -g",
-    "start": "pm2 start index.js -i max --attach",
+    "start": "pm2 start index.js -i max --attach link vx2t1m9u6r7tkez r5c8bmt2fpeb07n",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
