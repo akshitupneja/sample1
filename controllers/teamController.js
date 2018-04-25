@@ -421,7 +421,7 @@ exports.updateTeambyId = function(req, res) {
     //console.log(JSON.stringify(user));
 
         Team.update({ $and :
-            [{"tCaptain": playerId }, {"_id": teamId}]}, { $set: { 'tName': tName , 'tSports': tSports ,'tGender': tGender, 'tAgeGroup': tAgeGroup, 'tPic':tPic}}, {safe:true}, function(err, result) {
+            [{"tCaptain": playerId }, {"_id": teamId}]}, { $set: { 'tName': tName , 'tSports': tSports ,'tGender': tGender, 'tAgeGroup': tAgeGroup, 'tPic':tPic, 'tAddress': tAddress}}, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating user: ' + err);
                 res.send({Status:'Error', Message: "Error while updating Team"});
